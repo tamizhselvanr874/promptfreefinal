@@ -1,0 +1,28 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="styles.css">  
+    <title>Prompt Collector</title>  
+</head>  
+<body>  
+    <div class="container">  
+        <h1>Prompt Collector</h1>  
+        <form id="prompt-form">  
+            <label for="category-name">Category Name:</label>  
+            <input type="text" id="category-name" name="category-name" required>  
+  
+            <label for="prompt-name">Prompt Name:</label>  
+            <input type="text" id="prompt-name" name="prompt-name" required>  
+  
+            <label for="prompt-content">Prompt Content:</label>  
+            <textarea id="prompt-content" name="prompt-content" rows="4" required></textarea>  
+  
+            <button type="submit">Save Prompt</button>  
+        </form>  
+        <div id="message"></div>  
+    </div>  
+    <script src="script.js"></script>  
+</body>  
+</html>  
