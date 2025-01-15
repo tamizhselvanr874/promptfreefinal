@@ -2,49 +2,72 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('prompt-form');  
     const messageDiv = document.getElementById('message');  
     const sidebar = document.getElementById('sidebar');  
+    const numPromptsInput = document.getElementById('num-prompts');  
+    const promptFieldsContainer = document.getElementById('prompt-fields');  
   
     // Load existing prompts on page load  
     loadPrompts();  
   
+    // Listen for changes in the number of prompts input  
+    numPromptsInput.addEventListener('change', () => {  
+        const numPrompts = parseInt(numPromptsInput.value, 10);  
+        promptFieldsContainer.innerHTML = ''; // Clear existing fields  
+  
+        for (let i = 1; i <= numPrompts; i++) {  
+            const nameField = document.createElement('input');  
+            nameField.type = 'text';  
+            nameField.name = `prompt-name-${i}`;  
+            nameField.placeholder = `Prompt Name ${i}`;  
+            nameField.required = true;  
+  
+            const contentField = document.createElement('textarea');  
+            contentField.name = `prompt-content-${i}`;  
+            contentField.rows = 2;  
+            contentField.placeholder = `Prompt Content ${i}`;  
+            contentField.required = true;  
+  
+            promptFieldsContainer.appendChild(nameField);  
+            promptFieldsContainer.appendChild(contentField);  
+        }  
+    });  
+  
     form.addEventListener('submit', async (event) => {  
         event.preventDefault();  
   
-        // Get form values  
         const categoryName = document.getElementById('category-name').value.trim();  
-        const promptName = document.getElementById('prompt-name').value.trim();  
-        const promptContent = document.getElementById('prompt-content').value.trim();  
+        const numPrompts = parseInt(numPromptsInput.value, 10);  
+        const prompts = [];  
   
-        // Validate inputs  
-        if (!categoryName || !promptName || !promptContent) {  
-            messageDiv.textContent = 'All fields are required.';  
-            return;  
+        for (let i = 1; i <= numPrompts; i++) {  
+            const promptName = document.querySelector(`input[name="prompt-name-${i}"]`).value.trim();  
+            const promptContent = document.querySelector(`textarea[name="prompt-content-${i}"]`).value.trim();  
+            if (!promptName || !promptContent) {  
+                messageDiv.textContent = 'All fields are required.';  
+                return;  
+            }  
+            prompts.push({ promptName, content: promptContent });  
         }  
   
-        const promptData = {  
-            category: categoryName,  
-            promptName: promptName,  
-            content: promptContent  
-        };  
+        const promptData = { category: categoryName, prompts };  
   
         try {  
             await savePromptToAzure(promptData);  
             messageDiv.style.color = 'green';  
-            messageDiv.textContent = 'Prompt saved successfully!';  
+            messageDiv.textContent = 'Prompts saved successfully!';  
             loadPrompts(); // Reload prompts to update sidebar  
         } catch (error) {  
             messageDiv.style.color = 'red';  
-            messageDiv.textContent = 'Failed to save prompt.';  
-            console.error('Error saving prompt:', error);  
+            messageDiv.textContent = 'Failed to save prompts.';  
+            console.error('Error saving prompts:', error);  
         }  
     });  
   
     async function savePromptToAzure(promptData) {  
         const storageAccountName = 'promptfreefinal';  
         const containerName = 'prompt-lib';  
-        const blobName = `${promptData.category}-${promptData.promptName}.json`;  
+        const blobName = `${promptData.category}.json`;  
         const sasToken = '?sv=2022-11-02&ss=b&srt=co&sp=rwdlaciytfx&se=2026-01-16T04:30:29Z&st=2025-01-15T20:30:29Z&spr=https&sig=t8n%2FlbK%2F%2FvmWBUz3xH1ytCqnFqy5wX1RedSWs8SJ5b4%3D';  
   
-        // Construct the Blob URL  
         const blobUrl = `https://${storageAccountName}.blob.core.windows.net/${containerName}/${blobName}${sasToken}`;  
   
         const response = await fetch(blobUrl, {  
@@ -63,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
     async function loadPrompts() {  
         try {  
-            // Fetch the list of blobs  
             const blobs = await fetchBlobsFromAzure();  
             renderSidebar(blobs);  
         } catch (error) {  
@@ -79,11 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const sasToken = 'sv=2022-11-02&ss=b&srt=co&sp=rwdlaciytfx&se=2026-01-16T04:30:29Z&st=2025-01-15T20:30:29Z&spr=https&sig=t8n%2FlbK%2F%2FvmWBUz3xH1ytCqnFqy5wX1RedSWs8SJ5b4%3D';  
   
         const listUrl = `https://${storageAccountName}.blob.core.windows.net/${containerName}?restype=container&comp=list&${sasToken}`;  
-        console.log('Fetching blobs from URL:', listUrl); // Log the URL for debugging  
   
         try {  
             const response = await fetch(listUrl);  
-  
             if (!response.ok) {  
                 throw new Error(`Failed to fetch blob list: ${response.statusText}`);  
             }  
@@ -99,38 +119,41 @@ document.addEventListener('DOMContentLoaded', () => {
   
             return blobs;  
         } catch (error) {  
-            console.error('Error fetching blobs from Azure:', error); // Log the error for debugging  
+            console.error('Error fetching blobs from Azure:', error);  
             throw error;  
         }  
     }  
   
     async function renderSidebar(blobs) {  
         sidebar.innerHTML = ''; // Clear existing content  
-      
+  
         if (blobs.length === 0) {  
             sidebar.textContent = 'No prompts available.';  
             return;  
         }  
-      
+  
         for (const blob of blobs) {  
             try {  
                 const promptData = await fetchBlobData(blob.name);  
                 const promptElement = document.createElement('div');  
                 promptElement.classList.add('prompt-card');  
-      
+  
                 const categoryElement = document.createElement('div');  
                 categoryElement.innerHTML = `<strong>Category Name:</strong> ${promptData.category}`;  
-                  
-                const promptNameElement = document.createElement('div');  
-                promptNameElement.innerHTML = `<strong>Prompt Name:</strong> ${promptData.promptName}`;  
-      
-                const promptContentElement = document.createElement('div');  
-                promptContentElement.innerHTML = `<strong>Prompt Content:</strong> ${promptData.content}`;  
-      
+  
+                // Create a dropdown to list all prompts under the category  
+                const dropdown = document.createElement('select');  
+                dropdown.classList.add('prompt-dropdown');  
+  
+                promptData.prompts.forEach((prompt, index) => {  
+                    const option = document.createElement('option');  
+                    option.value = index;  
+                    option.textContent = `${prompt.promptName}: ${prompt.content}`;  
+                    dropdown.appendChild(option);  
+                });  
+  
                 promptElement.appendChild(categoryElement);  
-                promptElement.appendChild(promptNameElement);  
-                promptElement.appendChild(promptContentElement);  
-      
+                promptElement.appendChild(dropdown);  
                 sidebar.appendChild(promptElement);  
             } catch (error) {  
                 console.error('Error fetching blob data:', error);  
@@ -152,4 +175,4 @@ document.addEventListener('DOMContentLoaded', () => {
   
         return await response.json();  
     }  
-});
+});  
