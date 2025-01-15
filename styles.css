@@ -8,7 +8,7 @@ body {
     justify-content: center;  
     align-items: center;  
     height: 100vh;  
-    overflow: hidden; /* Prevents overflow on smaller screens */  
+    overflow: hidden;  
 }  
   
 .container, .sidebar {  
@@ -19,7 +19,7 @@ body {
     width: 100%;  
     max-width: 350px;  
     margin: 10px;  
-    box-sizing: border-box; /* Ensures padding is included in the element's total width and height */  
+    box-sizing: border-box;  
 }  
   
 h1 {  
@@ -36,7 +36,7 @@ label {
     color: #bb86fc;  
 }  
   
-input[type="text"], textarea {  
+input[type="text"], input[type="number"], textarea {  
     width: 100%;  
     padding: 10px;  
     margin-bottom: 15px;  
@@ -47,7 +47,7 @@ input[type="text"], textarea {
     box-sizing: border-box;  
 }  
   
-input[type="text"]::placeholder, textarea::placeholder {  
+input[type="text"]::placeholder, input[type="number"]::placeholder, textarea::placeholder {  
     color: #757575;  
 }  
   
@@ -74,24 +74,10 @@ button:hover {
 }  
   
 .sidebar {  
-    max-height: calc(100vh - 40px); /* Adjusts height to fit within the viewport */  
+    max-height: calc(100vh - 40px);  
     overflow-y: auto;  
 }  
   
-/* .sidebar div {  
-    background-color: #2c2c2c;  
-    margin: 5px 0;  
-    padding: 10px;  
-    border-radius: 5px;  
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  
-    color: #e0e0e0;  
-    box-sizing: border-box;  
-}  
-  
-.sidebar div:hover {  
-    background-color: #3a3a3a;  
-}   */
-
 .sidebar div {  
     background-color: #2c2c2c;  
     margin: 10px 0;  
@@ -112,4 +98,15 @@ button:hover {
   
 .sidebar div:hover {  
     background-color: #3a3a3a;  
+}  
+  
+.prompt-dropdown {  
+    width: 100%;  
+    margin-top: 10px;  
+    padding: 8px;  
+    border-radius: 5px;  
+    background-color: #2c2c2c;  
+    color: #e0e0e0;  
+    border: 1px solid #333;  
+    box-sizing: border-box;  
 }  
