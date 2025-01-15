@@ -8,16 +8,17 @@
 </head>  
 <body>  
     <div class="container">  
-        <h1>Prompt Collector</h1>  
+        <h1>Add Prompt</h1>  
         <form id="prompt-form">  
             <label for="category-name">Category Name:</label>  
             <input type="text" id="category-name" name="category-name" required>  
   
-            <label for="prompt-name">Prompt Name:</label>  
-            <input type="text" id="prompt-name" name="prompt-name" required>  
+            <label for="num-prompts">Number of Prompts:</label>  
+            <input type="number" id="num-prompts" name="num-prompts" min="1" required>  
   
-            <label for="prompt-content">Prompt Content:</label>  
-            <textarea id="prompt-content" name="prompt-content" rows="4" required></textarea>  
+            <div id="prompt-fields">  
+                <!-- Prompt fields will be dynamically inserted here -->  
+            </div>  
   
             <button type="submit">Save Prompt</button>  
         </form>  
