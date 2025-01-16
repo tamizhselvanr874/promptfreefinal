@@ -7,18 +7,24 @@ body {
     background-color: #404258;  
     color: #f5f5f5;  
     overflow: hidden;  
+    justify-content: center;  
+    align-items: center;  
 }  
   
 .app-container {  
     display: flex;  
+    justify-content: flex-start;   
     width: 100%;  
+    max-width: 100%;  
     height: 100%;  
     padding: 20px;  
     box-sizing: border-box;  
-}  
+}   
   
 .prompt-library {  
-    width: 20%;  
+    margin-right: 100px; /* Keep this if needed for spacing from the main content */  
+    margin-left: 0; /* Ensure no left margin */  
+    width: 140px;  
     padding: 20px 10px;  
     overflow-y: auto;  
     background-color: #343541;  
@@ -38,11 +44,12 @@ body {
     border-radius: 10px;  
     margin-bottom: 5px;  
     text-align: center;  
-    font-size: 18px;  
+    font-size: 25px;  
     position: relative;  
     display: flex;  
     justify-content: space-between;  
     align-items: center;  
+    width: 100px;  
 }  
   
 .prompt-library .category-heading:hover::after {  
@@ -56,7 +63,7 @@ body {
     padding: 3px 8px;  
     border-radius: 3px;  
     white-space: nowrap;  
-    font-size: 12px;  
+    font-size: 10px;  
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  
     z-index: 10;  
     pointer-events: none;  
@@ -100,34 +107,43 @@ body {
     background-color: #404258;  
     border-radius: 15px;  
     padding: 20px;  
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);   */
     backdrop-filter: blur(5px);  
     overflow-y: auto;  
     max-height: 100%;  
     scrollbar-width: thin;  
     scrollbar-color: #707070 #404258;  
+    display: flex;  
+    flex-direction: column;  
+    align-items: center;  
 }  
   
 .chat-header {  
     text-align: center;  
     padding: 20px 0;  
     margin-bottom: 20px;  
+    width: 100%;  
 }  
   
 .chat-header h1 {  
     margin: 0;  
     color: #f5f5f5;  
-    font-size: 32px;  
+    font-size: 40px;  
+    font-weight: bolder;
 }  
   
 form {  
     display: flex;  
     flex-direction: column;  
+    align-items: center;  
+    width: 100%;  
+    max-width: 400px;  
 }  
   
 form label {  
     margin-top: 10px;  
     font-size: 18px;  
+    width: 100%;  
 }  
   
 form input, form textarea {  
@@ -139,6 +155,8 @@ form input, form textarea {
     border: none;  
     border-radius: 5px;  
     margin-bottom: 15px;  
+    width: 100%;  
+    box-sizing: border-box;  
 }  
   
 form button {  
@@ -150,6 +168,7 @@ form button {
     border-radius: 5px;  
     cursor: pointer;  
     font-size: 16px;  
+    width: 30%;  
 }  
   
 form button:hover {  
@@ -191,19 +210,19 @@ form button:hover {
     width: 100%;  
     height: 100%;  
     overflow: auto;  
-    background-color: rgba(0, 0, 0, 0.8); /* Darker background for better focus */  
+    background-color: rgba(0, 0, 0, 0.8);  
 }  
   
 .modal-content {  
-    background-color: #343541; /* Match the sidebar background */  
+    background-color: #343541;  
     margin: 10% auto;  
     padding: 20px;  
     border-radius: 15px;  
     width: 60%;  
-    max-width: 600px; /* Limit width for larger screens */  
+    max-width: 600px;  
     color: #f5f5f5;  
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */  
-    box-sizing: border-box; /* Ensure padding and border are included in the total width */  
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);  
+    box-sizing: border-box;  
 }  
   
 .modal-header {  
@@ -216,7 +235,7 @@ form button:hover {
   
 .modal-header h2 {  
     margin: 0;  
-    font-size: 24px; /* Larger font for emphasis */  
+    font-size: 24px;  
 }  
   
 .close {  
@@ -226,8 +245,7 @@ form button:hover {
     cursor: pointer;  
 }  
   
-.close:hover,  
-.close:focus {  
+.close:hover, .close:focus {  
     color: #ff4d4d;  
 }  
   
@@ -241,22 +259,20 @@ form button:hover {
     font-size: 18px;  
 }  
   
-.modal-body input[type="text"],  
-.modal-body input[type="number"],  
-.modal-body textarea {  
-    width: calc(100% - 22px); /* Adjust width to account for padding and borders */  
+.modal-body input[type="text"], .modal-body input[type="number"], .modal-body textarea {  
+    width: calc(100% - 22px);  
     margin-top: 5px;  
     padding: 10px;  
     font-size: 16px;  
-    background-color: #404258; /* Match main content background */  
+    background-color: #404258;  
     color: #f5f5f5;  
-    border: 1px solid #707070; /* Subtle border for visibility */  
+    border: 1px solid #707070;  
     border-radius: 5px;  
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */  
+    box-sizing: border-box;  
 }  
   
 .modal-body textarea {  
-    resize: vertical; /* Allow resizing vertically */  
+    resize: vertical;  
 }  
   
 .modal-footer {  
