@@ -3,30 +3,57 @@
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Admin Panel</title>  
     <link rel="stylesheet" href="styles.css">  
-    <title>Prompt Collector</title>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">  
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">  
 </head>  
 <body>  
-    <div class="container">  
-        <h1>Add Prompt</h1>  
-        <form id="prompt-form">  
-            <label for="category-name">Category Name:</label>  
-            <input type="text" id="category-name" name="category-name" required>  
-  
-            <label for="num-prompts">Number of Prompts:</label>  
-            <input type="number" id="num-prompts" name="num-prompts" min="1" required>  
-  
-            <div id="prompt-fields">  
-                <!-- Prompt fields will be dynamically inserted here -->  
+    <div class="app-container">  
+        <div class="prompt-library" id="prompt-library">  
+            <!-- Sidebar content will be dynamically inserted here -->  
+        </div>  
+        <div class="main-content">  
+            <div class="chat-header">  
+                <h1>Conversational Canvas Admin Panel</h1>  
             </div>  
+            <form id="prompt-form">  
+                <label for="category-name">Category Name:</label>  
+                <input type="text" id="category-name" name="category-name" required>  
+                <label for="num-prompts">Number of Prompts:</label>  
+                <input type="number" id="num-prompts" name="num-prompts" min="1" required>  
+                <div id="prompt-fields">  
+                    <!-- Prompt fields will be dynamically inserted here -->  
+                </div>  
+                <button type="submit">Save Prompt</button>  
+                <div id="message"></div>  
+            </form>  
+        </div>  
+    </div>  
   
-            <button type="submit">Save Prompt</button>  
-        </form>  
-        <div id="message"></div>  
+    <!-- Edit Dialog -->  
+    <div id="edit-dialog" class="modal" style="display: none;">  
+        <div class="modal-content">  
+            <div class="modal-header">  
+                <h2>Edit Category</h2>  
+                <span class="close">&times;</span>  
+            </div>  
+            <div class="modal-body">  
+                <label for="edit-category-name">Category Name:</label>  
+                <input type="text" id="edit-category-name" required>  
+                <label for="edit-num-prompts">Number of Prompts:</label>  
+                <input type="number" id="edit-num-prompts" min="1" required>  
+                <div id="edit-prompt-fields">  
+                    <!-- Editable prompt fields will be dynamically inserted here -->  
+                </div>  
+            </div>  
+            <div class="modal-footer">  
+                <button id="save-changes">Save</button>  
+                <button class="close">Cancel</button>  
+            </div>  
+        </div>  
     </div>  
-    <div class="sidebar" id="sidebar">  
-        <!-- Sidebar content will be dynamically inserted here -->  
-    </div>  
+  
     <script src="script.js"></script>  
 </body>  
 </html>  
