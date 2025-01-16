@@ -1,112 +1,281 @@
 body {  
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
-    background-color: #121212;  
-    color: #e0e0e0;  
+    font-family: 'Open Sans', sans-serif;  
     margin: 0;  
     padding: 0;  
     display: flex;  
-    justify-content: center;  
-    align-items: center;  
     height: 100vh;  
+    background-color: #404258;  
+    color: #f5f5f5;  
     overflow: hidden;  
 }  
   
-.container, .sidebar {  
-    background-color: #1e1e1e;  
+.app-container {  
+    display: flex;  
+    width: 100%;  
+    height: 100%;  
     padding: 20px;  
-    border-radius: 10px;  
+    box-sizing: border-box;  
+}  
+  
+.prompt-library {  
+    width: 20%;  
+    padding: 20px 10px;  
+    overflow-y: auto;  
+    background-color: #343541;  
+    border-radius: 15px;  
+    box-sizing: border-box;  
+    margin-right: 20px;  
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
-    width: 100%;  
-    max-width: 350px;  
-    margin: 10px;  
-    box-sizing: border-box;  
+    backdrop-filter: blur(5px);  
+    scrollbar-width: thin;  
+    scrollbar-color: #707070 #343541;  
 }  
   
-h1 {  
-    font-size: 28px;  
-    text-align: center;  
-    margin-bottom: 20px;  
-    color: #bb86fc;  
-}  
-  
-label {  
-    display: block;  
-    margin-bottom: 5px;  
-    font-weight: bold;  
-    color: #bb86fc;  
-}  
-  
-input[type="text"], input[type="number"], textarea {  
-    width: 100%;  
+.prompt-library .category-heading {  
+    cursor: pointer;  
     padding: 10px;  
-    margin-bottom: 15px;  
-    border: 1px solid #333;  
+    background-color: #404258;  
+    border-radius: 10px;  
+    margin-bottom: 5px;  
+    text-align: center;  
+    font-size: 18px;  
+    position: relative;  
+    display: flex;  
+    justify-content: space-between;  
+    align-items: center;  
+}  
+  
+.prompt-library .category-heading:hover::after {  
+    content: attr(data-tooltip);  
+    position: absolute;  
+    top: 50%;  
+    left: 105%;  
+    transform: translateY(-50%);  
+    background-color: #2F3645;  
+    color: #ffffff;  
+    padding: 3px 8px;  
+    border-radius: 3px;  
+    white-space: nowrap;  
+    font-size: 12px;  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  
+    z-index: 10;  
+    pointer-events: none;  
+}  
+  
+.category-heading .fa-trash, .category-heading .fa-edit {  
+    margin-left: 5px;  
+    cursor: pointer;  
+    color: #f5f5f5;  
+}  
+  
+.category-heading .fa-trash:hover {  
+    color: #ff4d4d;  
+}  
+  
+.category-heading .fa-edit:hover {  
+    color: #4da6ff;  
+}  
+  
+.prompt-library .prompt-list {  
+    list-style: none;  
+    padding: 0;  
+    margin: 5px 0;  
+}  
+  
+.prompt-library .prompt-list li {  
+    padding: 5px 10px;  
+    border-bottom: 1px solid #3a3a3a;  
+    color: #b0b0b0;  
+    cursor: pointer;  
+    text-align: center;  
+}  
+  
+.prompt-library .prompt-list li:hover {  
+    background-color: #2F3645;  
+    color: #ffffff;  
+}  
+  
+.main-content {  
+    flex: 1;  
+    background-color: #404258;  
+    border-radius: 15px;  
+    padding: 20px;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+    backdrop-filter: blur(5px);  
+    overflow-y: auto;  
+    max-height: 100%;  
+    scrollbar-width: thin;  
+    scrollbar-color: #707070 #404258;  
+}  
+  
+.chat-header {  
+    text-align: center;  
+    padding: 20px 0;  
+    margin-bottom: 20px;  
+}  
+  
+.chat-header h1 {  
+    margin: 0;  
+    color: #f5f5f5;  
+    font-size: 32px;  
+}  
+  
+form {  
+    display: flex;  
+    flex-direction: column;  
+}  
+  
+form label {  
+    margin-top: 10px;  
+    font-size: 18px;  
+}  
+  
+form input, form textarea {  
+    margin-top: 5px;  
+    padding: 10px;  
+    font-size: 16px;  
+    background-color: #343541;  
+    color: #f5f5f5;  
+    border: none;  
     border-radius: 5px;  
-    background-color: #2c2c2c;  
-    color: #e0e0e0;  
-    box-sizing: border-box;  
+    margin-bottom: 15px;  
 }  
   
-input[type="text"]::placeholder, input[type="number"]::placeholder, textarea::placeholder {  
-    color: #757575;  
-}  
-  
-button {  
-    width: 100%;  
-    padding: 12px;  
-    background-color: #bb86fc;  
-    color: #121212;  
+form button {  
+    margin-top: 20px;  
+    padding: 10px;  
+    background-color: #f5f5f5;  
+    color: #000;  
     border: none;  
     border-radius: 5px;  
     cursor: pointer;  
-    font-weight: bold;  
-    transition: background-color 0.3s;  
+    font-size: 16px;  
 }  
   
-button:hover {  
-    background-color: #9b59b6;  
+form button:hover {  
+    background-color: #e0e0e0;  
 }  
   
 #message {  
     margin-top: 10px;  
-    text-align: center;  
-    color: #cf6679;  
+    font-size: 16px;  
+    color: red;  
 }  
   
-.sidebar {  
-    max-height: calc(100vh - 40px);  
-    overflow-y: auto;  
+/* Custom scrollbar styling */  
+::-webkit-scrollbar {  
+    width: 8px;  
 }  
   
-.sidebar div {  
-    background-color: #2c2c2c;  
-    margin: 10px 0;  
-    padding: 15px;  
-    border-radius: 5px;  
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  
-    color: #e0e0e0;  
-    box-sizing: border-box;  
+::-webkit-scrollbar-track {  
+    background: #343541;  
+    border-radius: 10px;  
 }  
   
-.prompt-card div {  
-    margin-bottom: 10px;  
+::-webkit-scrollbar-thumb {  
+    background: #707070;  
+    border-radius: 10px;  
 }  
   
-.prompt-card strong {  
-    color: #bb86fc;  
+::-webkit-scrollbar-thumb:hover {  
+    background: #505050;  
 }  
   
-.sidebar div:hover {  
-    background-color: #3a3a3a;  
-}  
-  
-.prompt-dropdown {  
+/* Modal styling */  
+.modal {  
+    display: none;  
+    position: fixed;  
+    z-index: 1000;  
+    left: 0;  
+    top: 0;  
     width: 100%;  
-    margin-top: 10px;  
-    padding: 8px;  
+    height: 100%;  
+    overflow: auto;  
+    background-color: rgba(0, 0, 0, 0.8); /* Darker background for better focus */  
+}  
+  
+.modal-content {  
+    background-color: #343541; /* Match the sidebar background */  
+    margin: 10% auto;  
+    padding: 20px;  
+    border-radius: 15px;  
+    width: 60%;  
+    max-width: 600px; /* Limit width for larger screens */  
+    color: #f5f5f5;  
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */  
+    box-sizing: border-box; /* Ensure padding and border are included in the total width */  
+}  
+  
+.modal-header {  
+    display: flex;  
+    justify-content: space-between;  
+    align-items: center;  
+    border-bottom: 1px solid #707070;  
+    padding-bottom: 10px;  
+}  
+  
+.modal-header h2 {  
+    margin: 0;  
+    font-size: 24px; /* Larger font for emphasis */  
+}  
+  
+.close {  
+    color: #f5f5f5;  
+    font-size: 28px;  
+    font-weight: bold;  
+    cursor: pointer;  
+}  
+  
+.close:hover,  
+.close:focus {  
+    color: #ff4d4d;  
+}  
+  
+.modal-body {  
+    margin-top: 20px;  
+}  
+  
+.modal-body label {  
+    display: block;  
+    margin-top: 15px;  
+    font-size: 18px;  
+}  
+  
+.modal-body input[type="text"],  
+.modal-body input[type="number"],  
+.modal-body textarea {  
+    width: calc(100% - 22px); /* Adjust width to account for padding and borders */  
+    margin-top: 5px;  
+    padding: 10px;  
+    font-size: 16px;  
+    background-color: #404258; /* Match main content background */  
+    color: #f5f5f5;  
+    border: 1px solid #707070; /* Subtle border for visibility */  
     border-radius: 5px;  
-    background-color: #2c2c2c;  
-    color: #e0e0e0;  
-    border: 1px solid #333;  
-    box-sizing: border-box;  
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */  
+}  
+  
+.modal-body textarea {  
+    resize: vertical; /* Allow resizing vertically */  
+}  
+  
+.modal-footer {  
+    display: flex;  
+    justify-content: flex-end;  
+    margin-top: 20px;  
+}  
+  
+.modal-footer button {  
+    margin-left: 10px;  
+    padding: 10px 20px;  
+    background-color: #f5f5f5;  
+    color: #000;  
+    border: none;  
+    border-radius: 5px;  
+    cursor: pointer;  
+    font-size: 16px;  
+}  
+  
+.modal-footer button:hover {  
+    background-color: #e0e0e0;  
 }  
