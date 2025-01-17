@@ -24,7 +24,7 @@ body {
 .prompt-library {  
     margin-right: 100px; /* Keep this if needed for spacing from the main content */  
     margin-left: 0; /* Ensure no left margin */  
-    width: 140px;  
+    width: 100px;  
     padding: 20px 10px;  
     overflow-y: auto;  
     background-color: #343541;  
