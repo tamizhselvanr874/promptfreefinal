@@ -43,13 +43,12 @@ body {
     background-color: #404258;  
     border-radius: 10px;  
     margin-bottom: 5px;  
-    text-align: center;  
+    text-align: center; /* Center the text */  
     font-size: 25px;  
     position: relative;  
     display: flex;  
-    justify-content: space-between;  
+    justify-content: center; /* Center align flex items */  
     align-items: center;  
-    width: 100px;  
 }  
   
 .prompt-library .category-heading:hover::after {  
@@ -74,12 +73,25 @@ body {
     cursor: pointer;  
     color: #f5f5f5;  
 }  
+
+.category-heading .fa-trash,  
+.category-heading .fa-edit {  
+    display: none; /* Hide icons in category heading */  
+}  
+
+.prompt-list li .fa-trash,  
+.prompt-list li .fa-edit {  
+    margin: 0 15px; /* Increase margin for more space between icons */  
+    cursor: pointer;  
+    color: #f5f5f5;  
+    font-size: 18px; /* Increase font size for larger icons */  
+}   
   
-.category-heading .fa-trash:hover {  
+.prompt-list li .fa-trash:hover {  
     color: #ff4d4d;  
 }  
   
-.category-heading .fa-edit:hover {  
+.prompt-list li .fa-edit:hover {  
     color: #4da6ff;  
 }  
   
@@ -90,11 +102,13 @@ body {
 }  
   
 .prompt-library .prompt-list li {  
-    padding: 5px 10px;  
+    padding: 10px 0; /* Adjust padding for better spacing */  
     border-bottom: 1px solid #3a3a3a;  
     color: #b0b0b0;  
     cursor: pointer;  
-    text-align: center;  
+    display: flex;  
+    justify-content: center; /* Center align icons */  
+    align-items: center;     
 }  
   
 .prompt-library .prompt-list li:hover {  
