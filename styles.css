@@ -42,7 +42,7 @@ body {
     padding: 10px;  
     background-color: #404258;  
     border-radius: 10px;  
-    margin-bottom: 5px;  
+    margin: 10px;  
     text-align: center; /* Center the text */  
     font-size: 25px;  
     position: relative;  
@@ -52,7 +52,7 @@ body {
 }  
   
 .prompt-library .category-heading:hover::after {  
-    content: attr(data-tooltip);  
+/*     content: attr(data-tooltip);   */
     position: absolute;  
     top: 50%;  
     left: 105%;  
