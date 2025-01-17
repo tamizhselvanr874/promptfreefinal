@@ -134,63 +134,91 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function renderSidebar(blobs) {
-        const sidebar = document.getElementById('prompt-library');
-        sidebar.innerHTML = ''; // Clear existing content
+    // function toggleCategory(categoryId) {  
+    //     const categoryElement = document.getElementById(categoryId);  
+    //     if (categoryElement) {  
+    //         categoryElement.style.display = categoryElement.style.display === 'none' ? 'block' : 'none';  
+    //     }  
+    // }
 
-        if (blobs.length === 0) {
-            sidebar.innerHTML = '<div>No prompts available.</div>';
-            return;
-        }
+    function toggleCategory(selectedCategoryId) {  
+        // Get all prompt lists  
+        const allPromptLists = document.querySelectorAll('.prompt-list');  
+      
+        allPromptLists.forEach(promptList => {  
+            // Close all prompt lists except the one that was clicked  
+            if (promptList.id !== selectedCategoryId) {  
+                promptList.style.display = 'none';  
+            }  
+        });  
+      
+        // Toggle the selected category  
+        const selectedCategoryElement = document.getElementById(selectedCategoryId);  
+        if (selectedCategoryElement) {  
+            selectedCategoryElement.style.display = selectedCategoryElement.style.display === 'none' ? 'block' : 'none';  
+        }  
+    }  
 
-        blobs.forEach(blob => {
-            fetchBlobData(blob.name).then(async promptData => {
-                const promptCategoryElement = document.createElement('div');
-                promptCategoryElement.className = 'prompt-category';
-
-                const categoryHeading = document.createElement('h3');
-                categoryHeading.className = 'category-heading';
-
-                const iconClass = await icon_code_generation(promptData.category);
-                categoryHeading.innerHTML = `
-                    <i class="${iconClass}"></i>
-                    <i class="fa fa-trash delete-icon" title="Delete Category"></i>
-                    <i class="fa fa-edit edit-icon" title="Edit Category"></i>
-                `;
-                categoryHeading.setAttribute('data-tooltip', promptData.category);
-
-                // Add delete functionality
-                categoryHeading.querySelector('.delete-icon').onclick = () => {
-                    if (confirm("Are you sure you want to delete this category?")) {
-                        deleteCategory(promptData.category);
-                    }
-                };
-
-                // Add edit functionality
-                categoryHeading.querySelector('.edit-icon').onclick = () => {
-                    openEditDialog(promptData);
-                };
-
-                const promptList = document.createElement('ul');
-                promptList.className = 'prompt-list';
-                promptList.id = promptData.category;
-                promptList.style.display = 'none';
-
-                promptData.prompts.forEach(prompt => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = prompt.promptName;
-                    listItem.dataset.promptDescription = prompt.content;
-                    promptList.appendChild(listItem);
-                });
-
-                promptCategoryElement.appendChild(categoryHeading);
-                promptCategoryElement.appendChild(promptList);
-                sidebar.appendChild(promptCategoryElement);
-            }).catch(error => {
-                console.error('Error fetching blob data:', error);
-            });
-        });
-    }
+    async function renderSidebar(blobs) {  
+        const sidebar = document.getElementById('prompt-library');  
+        sidebar.innerHTML = ''; // Clear existing content  
+      
+        if (blobs.length === 0) {  
+            sidebar.innerHTML = '<div>No prompts available.</div>';  
+            return;  
+        }  
+      
+        blobs.forEach(blob => {  
+            fetchBlobData(blob.name).then(async promptData => {  
+                const promptCategoryElement = document.createElement('div');  
+                promptCategoryElement.className = 'prompt-category';  
+      
+                const categoryHeading = document.createElement('h3');  
+                categoryHeading.className = 'category-heading';  
+                categoryHeading.onclick = () => toggleCategory(promptData.category);  
+      
+                const iconClass = await icon_code_generation(promptData.category);  
+                categoryHeading.innerHTML = `  
+                    <i class="${iconClass}" title="${promptData.category}"></i>  
+                `;  
+                categoryHeading.setAttribute('data-tooltip', promptData.category);  
+      
+                const promptList = document.createElement('ul');  
+                promptList.className = 'prompt-list';  
+                promptList.id = promptData.category;  
+                promptList.style.display = 'none';  
+      
+                // Only one list item containing edit and delete icons  
+                const listItem = document.createElement('li');  
+                listItem.style.textAlign = 'center'; // Center align icons  
+      
+                // Add edit and delete icons inside the list item  
+                const editIcon = document.createElement('i');  
+                editIcon.className = 'fa fa-edit edit-icon';  
+                editIcon.title = 'Edit Category';  
+                editIcon.onclick = () => openEditDialog(promptData);  
+      
+                const deleteIcon = document.createElement('i');  
+                deleteIcon.className = 'fa fa-trash delete-icon';  
+                deleteIcon.title = 'Delete Category';  
+                deleteIcon.onclick = () => {  
+                    if (confirm("Are you sure you want to delete this category?")) {  
+                        deleteCategory(promptData.category);  
+                    }  
+                };  
+      
+                listItem.appendChild(editIcon);  
+                listItem.appendChild(deleteIcon);  
+                promptList.appendChild(listItem);  
+      
+                promptCategoryElement.appendChild(categoryHeading);  
+                promptCategoryElement.appendChild(promptList);  
+                sidebar.appendChild(promptCategoryElement);  
+            }).catch(error => {  
+                console.error('Error fetching blob data:', error);  
+            });  
+        });  
+    }  
 
     async function deleteCategory(categoryName) {
         try {
@@ -424,12 +452,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return derivedIcons.default;
-    }
-
-    function toggleCategory(categoryId) {
-        const categoryElement = document.getElementById(categoryId);
-        if (categoryElement) {
-            categoryElement.style.display = categoryElement.style.display === 'none' ? 'block' : 'none';
-        }
     }
 });
