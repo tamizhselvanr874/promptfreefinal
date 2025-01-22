@@ -17,19 +17,18 @@
             <div class="chat-header">  
                 <h1>Conversational Canvas Admin Panel</h1>  
             </div>  
-            <form id="prompt-form">  
-                <label for="category-name" style="text-align: center;">Category Name</label>  
-                <input type="text" id="category-name" name="category-name" required>  
-                <label for="num-prompts" style="text-align: center;">Number of Prompts</label>  
-                <input type="number" id="num-prompts" name="num-prompts" min="1" required>  
-                <div id="prompt-fields">  
-                    <!-- Prompt fields will be dynamically inserted here -->  
+            <div class="chat-interface">  
+                <div class="chat-window" id="chat-window"></div>  
+                <div class="input-area">  
+                    <input type="text" id="user-input" placeholder="Type your message...">  
+                    <button id="send-button">  
+                        <i class="fa-solid fa-paper-plane"></i>  
+                    </button>  
                 </div>  
-                <button type="submit">Add Prompt</button>  
-                <div id="message"></div>  
-            </form>  
+            </div>  
         </div>  
     </div>  
+  
     <!-- Edit Dialog -->  
     <div id="edit-dialog" class="modal" style="display: none;">  
         <div class="modal-content">  
@@ -52,6 +51,7 @@
             </div>  
         </div>  
     </div>  
+  
     <script src="script.js"></script>  
 </body>  
 </html>  
