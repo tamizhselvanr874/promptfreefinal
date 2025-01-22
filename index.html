@@ -3,55 +3,70 @@
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Admin Panel</title>  
+    <title>Conversational Canvas</title>  
     <link rel="stylesheet" href="styles.css">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">  
 </head>  
 <body>  
+    <!-- New Session Button -->  
+    <button id="new-session-button" title="New Session">  
+        New Canvas  
+    </button>  
+  
     <div class="app-container">  
-        <div class="prompt-library" id="prompt-library">  
-            <!-- Sidebar content will be dynamically inserted here -->  
-        </div>  
-        <div class="main-content">  
+        <div class="prompt-library"></div>  
+        <div class="chat-interface">  
             <div class="chat-header">  
-                <h1>Conversational Canvas Admin Panel</h1>  
+                <h1>Conversational Canvas</h1>  
             </div>  
-            <form id="prompt-form">  
-                <label for="category-name" style="text-align: center;">Category Name</label>  
-                <input type="text" id="category-name" name="category-name" required>  
-                <label for="num-prompts" style="text-align: center;">Number of Prompts</label>  
-                <input type="number" id="num-prompts" name="num-prompts" min="1" required>  
-                <div id="prompt-fields">  
-                    <!-- Prompt fields will be dynamically inserted here -->  
-                </div>  
-                <button type="submit">Add Prompt</button>  
-                <div id="message"></div>  
-            </form>  
-        </div>  
-    </div>  
-    <!-- Edit Dialog -->  
-    <div id="edit-dialog" class="modal" style="display: none;">  
-        <div class="modal-content">  
-            <div class="modal-header">  
-                <h2>Edit Category</h2>  
-                <span class="close">&times;</span>  
-            </div>  
-            <div class="modal-body">  
-                <label for="edit-category-name">Category Name:</label>  
-                <input type="text" id="edit-category-name" required>  
-                <label for="edit-num-prompts">Number of Prompts:</label>  
-                <input type="number" id="edit-num-prompts" min="1" required>  
-                <div id="edit-prompt-fields">  
-                    <!-- Editable prompt fields will be dynamically inserted here -->  
+            <div class="chat-window" id="chat-window"></div>  
+  
+            <div class="recommendations" id="recommendations" style="display: none;"></div>  
+            <div class="input-area">  
+                            <!-- Dropdown Menu for Checkboxes -->  
+            <div class="checkbox-container">  
+                <div class="options-menu">  
+                    <button id="options-menu-button" title="Options">  
+                        <i class="fa-solid fa-ellipsis-vertical"></i> <!-- Three-dot icon -->  
+                    </button>  
+                    <div class="dropdown-content">  
+                        <!-- Direct Image Generation Checkbox -->  
+                        <div class="direct-generation-checkbox" title="Direct Image Generation">  
+                            <input type="checkbox" id="direct-image-generation"> 
+                           <label for="direct-image-generation"></label> <span>Quick Mode</span>
+                        </div>  
+                        <!-- Recommendations Checkbox -->  
+                        <div class="recommendation-checkbox" title="Recommendations">  
+                            <input type="checkbox" id="show-recommendations"> 
+                              <label for="show-recommendations"></label> <span>Recommendations</span> 
+                        </div>  
+                    </div>  
                 </div>  
             </div>  
-            <div class="modal-footer">  
-                <button id="save-changes">Save</button>  
-                <button class="close">Cancel</button>  
+                <!-- Image upload icon -->  
+                <label for="image-upload" class="image-upload-label">  
+                    <input type="file" id="image-upload" accept="image/*">  
+                    <i class="fa-solid fa-paperclip"></i>  
+                </label>  
+  
+                <input type="text" id="user-input" placeholder="Type your message...">  
+                <button id="send-button">  
+                    <i class="fa-solid fa-paper-plane"></i>  
+                </button>  
             </div>  
         </div>  
     </div>  
+  
+    <!-- Modal for enlarged image view -->  
+    <div id="image-modal" class="modal">  
+        <span class="close" onclick="closeModal()">&times;</span>  
+        <img class="modal-content" id="enlarged-img">  
+        <a id="download-link" download="generated-image.jpg">Download</a>  
+    </div>  
+  
     <script src="script.js"></script>  
 </body>  
 </html>  
