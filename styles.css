@@ -20,21 +20,23 @@ body {
     box-sizing: border-box;  
 }  
 
-.prompt-library {  
-    width: 8%;  
-    height: 100%; /* Set a specific height */  
-    padding: 20px 10px; /* Adjust padding if necessary */  
-    overflow-y: auto;  
-    background-color: #343541;  
-    border-radius: 15px;  
-    box-sizing: border-box;  
-    margin-right: 20px;  
-    margin-top: auto; /* Push to bottom */  
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
-    backdrop-filter: blur(5px);  
-    scrollbar-width: thin;  
-    scrollbar-color: #404258 #343541;  
-} 
+.prompt-library {
+    width: 8%;
+    height: 85%;
+    padding: 20px 10px;
+    overflow-y: auto;
+    background-color: #343541;
+    border-radius: 15px;
+    box-sizing: border-box;
+    margin-right: 20px;
+    margin-top: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    scrollbar-width: thin;
+    scrollbar-color: #404258 #343541;
+    position: relative;
+    bottom: 37px;
+}
   
 .prompt-library .category-heading {  
     cursor: pointer;  
