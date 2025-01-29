@@ -1,15 +1,35 @@
+/* styles.css */  
 body {  
     font-family: 'Open Sans', sans-serif;  
     margin: 0;  
     padding: 0;  
     display: flex;  
     height: 100vh;  
-    background-color: #404258;  
     color: #f5f5f5;  
     overflow: hidden;  
-    justify-content: center;  
-    align-items: center;  
+
+    /* Background properties */  
+    background-image: url('generated_00 (3).png'); /* Replace with the path to your image */  
+    background-size: cover;  
+    background-repeat: no-repeat;  
+    background-position: center;  
+    background-attachment: fixed;  
+
+    /* Optional overlay to make it more subtle */  
+    position: relative;  
 }  
+
+/* Overlay to adjust the brightness and add a subtle tint */  
+body::before {  
+    content: '';  
+    position: absolute;  
+    top: 0;  
+    left: 0;  
+    width: 100%;  
+    height: 100%;  
+    background: rgba(64, 66, 88, 0.8);   
+    pointer-events: none; 
+}   
   
 /* --- */
 .app-container {  
@@ -18,14 +38,15 @@ body {
     height: 100%;  
     padding: 20px;  
     box-sizing: border-box;  
-}  
+}   
 
 .prompt-library {
     width: 8%;
-    height: 85%;
+    height: 75%;
     padding: 20px 10px;
     overflow-y: auto;
-    background-color: #343541;
+    /* background-color: #343541; */
+    background: transparent;
     border-radius: 15px;
     box-sizing: border-box;
     margin-right: 20px;
@@ -83,7 +104,8 @@ body {
   
 .main-content {  
     flex: 1;  
-    background-color: #404258;  
+    /* background-color: #404258;   */
+    background: transparent;
     border-radius: 15px;  
     padding: 20px;  
     backdrop-filter: blur(5px);   
@@ -105,7 +127,7 @@ body {
 .chat-header h1 {  
     margin: 0;  
     color: #f5f5f5;  
-    font-size: 40px;  
+    font-size: 20px;  
     font-weight: bolder;  
 }  
   
@@ -113,7 +135,8 @@ body {
     flex: 1;  
     display: flex;  
     flex-direction: column;  
-    background-color: #404258;  
+    /* background-color: #404258;   */
+    background: transparent;
     padding: 20px;  
     border-radius: 15px;  
     position: relative;  
@@ -127,7 +150,8 @@ body {
     padding: 10px;  
     overflow-y: auto;  
     overflow-x: hidden; 
-    background-color: #404258;  
+    /* background-color: #404258;   */
+    background: transparent;
     border-radius: 15px;  
     margin-bottom: 10px;  
     scrollbar-width: thin;  
@@ -153,7 +177,8 @@ body {
     display: flex;  
     align-items: center;  
     padding: 10px;  
-    background-color: #343541;  
+    /* background-color: #343541;   */
+    background: transparent;
     border-radius: 15px;  
     position: relative;  
     bottom: 0;  
@@ -166,7 +191,8 @@ body {
     flex: 1;  
     padding: 10px;  
     margin-right: 10px;  
-    background-color: #343541;  
+    /* background-color: #343541;   */
+    background: transparent;
     border: none;  
     border-radius: 15px;  
     color: #f5f5f5;  
