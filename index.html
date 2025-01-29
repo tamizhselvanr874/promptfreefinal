@@ -3,20 +3,24 @@
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Admin Panel</title>  
+    <title>ConvoPanel</title>  
     <link rel="stylesheet" href="styles.css">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">  
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">  
 </head>  
 <body>  
+
+    <div class="chat-header" style="height: 0px; width: 5px; position: absolute;
+    top: 65px;
+    left: 25px;">  
+        <h1 style="color:  cyan;">ConvoPanel</h1>  
+    </div>  
+
     <div class="app-container">  
         <div class="prompt-library" id="prompt-library">  
             <!-- Sidebar content will be dynamically inserted here -->  
         </div>  
         <div class="main-content">  
-            <div class="chat-header">  
-                <h1>Conversational Canvas Admin Panel</h1>  
-            </div>  
             <div class="chat-interface">  
                 <div class="chat-window" id="chat-window"></div>  
                 <div class="input-area">  
